@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRATUM Geotechnical Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --bg4: #2d333b;
+    --border: #30363d;
+    --border2: #444c56;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --accent: #3fb950;
+    --accent2: #238636;
+    --amber: #d29922;
+    --red: #f85149;
+    --blue: #58a6ff;
+    --teal: #39d353;
+    --radius: 6px;
+    --radius-lg: 10px;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 28px; height: 28px;
+    background: var(--accent2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    color: #fff;
+  }
+  .logo-text { font-family: var(--mono); font-size: 14px; color: var(--text); }
+  .logo-sub { color: var(--text2); font-size: 11px; font-family: var(--mono); }
+  .badge { background: var(--accent2); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-family: var(--mono); }
+
+  /* ── Nav Tabs ── */
+  .nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--bg2); padding: 0 2rem; }
+  .nav-btn {
+    padding: 10px 16px; background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--text2); cursor: pointer; font-family: var(--sans); font-size: 13px;
+    display: flex; align-items: center; gap: 6px; transition: all 0.15s;
+  }
+  .nav-btn:hover { color: var(--text); }
+  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ── Main Layout ── */
+  .main { max-width: 1280px; margin: 0 auto; padding: 1.5rem 2rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: var(--mono); font-size: 11px; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+  }
+  .card-title::before { content: '//'; color: var(--accent); }
+
+  /* ── Grid ── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+
+  /* ── Form Elements ── */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 12px; color: var(--text2); font-family: var(--mono); }
+  .field input, .field select {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
+    color: var(--text); padding: 7px 10px; font-family: var(--mono); font-size: 13px;
+    outline: none; transition: border-color 0.15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--accent); }
+  .field input::placeholder { color: var(--text3); }
+  .field .hint { font-size: 11px; color: var(--text3); }
+
+  /* ── Data Table ── */
+  .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  thead tr { background: var(--bg3); }
+  th {
+    padding: 8px 10px; text-align: left; color: var(--text2);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--bg3); }
+  td.num { text-align: right; color: var(--blue); }
+  td.computed { text-align: right; color: var(--accent); }
+  td.warn { text-align: right; color: var(--amber); }
+  td.danger { text-align: right; color: var(--red); }
+  td.label { color: var(--text2); }
+
+  /* ── Buttons ── */
+  .btn {
+    padding: 8px 16px; border-radius: var(--radius); border: none;
+    cursor: pointer; font-family: var(--mono); font-size: 13px;
+    display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent2); color: #fff; }
+  .btn-primary:hover { background: #2ea043; }
+  .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--border2); }
+  .btn-danger { background: #3a1a1a; color: var(--red); border: 1px solid #5a2020; }
+  .btn-danger:hover { background: #5a2020; }
+  .btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+  /* ── Stats ── */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+  .stat { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+  .stat-label { font-size: 11px; color: var(--text2); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; }
+  .stat-value { font-size: 22px; font-weight: 600; font-family: var(--mono); margin-top: 4px; }
+  .stat-unit { font-size: 11px; color: var(--text2); }
+  .stat-green .stat-value { color: var(--accent); }
+  .stat-blue .stat-value { color: var(--blue); }
+  .stat-amber .stat-value { color: var(--amber); }
+  .stat-red .stat-value { color: var(--red); }
+
+  /* ── Formula Block ── */
+  .formula-box {
+    background: var(--bg3); border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.75rem 1rem; margin: 0.75rem 0;
+    font-family: var(--mono); font-size: 12px; color: var(--text2);
+  }
+  .formula-box .eq { color: var(--accent); font-size: 13px; margin: 2px 0; }
+  .formula-box .ref { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* ── Soil Layer Row Input ── */
+  .layer-row {
+    display: grid;
+    grid-template-columns: 50px 80px 80px 90px 80px 70px 100px 60px auto;
+    gap: 6px; align-items: end; margin-bottom: 6px;
+  }
+  .layer-row .field label { font-size: 10px; }
+
+  /* ── Classification Chip ── */
+  .chip {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 11px; font-family: var(--mono); white-space: nowrap;
+  }
+  .chip-green { background: #1a3a1a; color: var(--accent); }
+  .chip-amber { background: #2a2010; color: var(--amber); }
+  .chip-red { background: #2a1010; color: var(--red); }
+  .chip-blue { background: #102030; color: var(--blue); }
+  .chip-gray { background: var(--bg4); color: var(--text2); }
+
+  /* ── Alert ── */
+  .alert { padding: 10px 14px; border-radius: var(--radius); margin-bottom: 1rem; font-size: 13px; }
+  .alert-info { background: #10243e; border: 1px solid #1f4068; color: var(--blue); }
+  .alert-warn { background: #2a1f00; border: 1px solid #5a4000; color: var(--amber); }
+  .alert-error { background: #2a0f0f; border: 1px solid #5a2020; color: var(--red); }
+  .alert-success { background: #0f2a0f; border: 1px solid #1e5c1e; color: var(--accent); }
+
+  /* ── Methodology section ── */
+  .method-step { margin-bottom: 1.5rem; }
+  .method-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; background: var(--accent2); border-radius: 50%;
+    font-family: var(--mono); font-size: 11px; color: #fff; margin-right: 8px;
+  }
+  .method-title { font-size: 13px; font-weight: 500; color: var(--text); display: inline; }
+
+  /* ── Print / Export ── */
+  @media print {
+    .header, .nav, .btn-row, .no-print { display: none !important; }
+    .section { display: block !important; }
+    body { background: #fff; color: #000; }
+    .card { background: #f8f8f8; border-color: #ccc; break-inside: avoid; }
+  }
+
+  /* ── Separator ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+  /* ── Profile header ── */
+  .profile-header {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 1.5rem; margin-bottom: 1rem;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 1rem;
+  }
+  .profile-bh { font-family: var(--mono); font-size: 24px; font-weight: 600; color: var(--accent); }
+  .profile-meta { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  .empty-state {
+    text-align: center; padding: 3rem; color: var(--text2);
+    font-family: var(--mono); font-size: 13px;
+  }
+  .empty-icon { font-size: 40px; margin-bottom: 1rem; }
+
+  /* layer add button */
+  .add-layer-btn {
+    width: 100%; padding: 8px;
+    background: var(--bg3); border: 1px dashed var(--border2);
+    border-radius: var(--radius); color: var(--text2);
+    cursor: pointer; font-family: var(--mono); font-size: 12px;
+    text-align: center; transition: all 0.15s;
+  }
+  .add-layer-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .sep { height: 1px; background: var(--border); margin: 1rem -1.25rem; }
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+  .result-section { margin-bottom: 1.5rem; }
+  .result-section h3 { font-size: 13px; font-weight: 500; color: var(--text2); font-family: var(--mono); margin-bottom: 10px; }
+
+  .liq-bar { height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; margin-top: 6px; }
+  .liq-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+
+  /* ─ Responsive ─ */
+  @media (max-width: 768px) {
+    .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+    .layer-row { grid-template-columns: 1fr 1fr; }
+    .main { padding: 1rem; }
+    .header { padding: 0 1rem; }
+    .nav { padding: 0 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">SPT</div>
+    <div>
+      <div class="logo-text">GeoTech Analyzer</div>
+      <div class="logo-sub">Standard Penetration Test — Analysis Suite</div>
+    </div>
+  </div>
+  <span class="badge">v2.0</span>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showTab('input')"><span class="nav-dot"></span> Input Data</button>
+  <button class="nav-btn" onclick="showTab('results')"><span class="nav-dot"></span> Results</button>
+  <button class="nav-btn" onclick="showTab('methodology')"><span class="nav-dot"></span> Methodology</button>
+</div>
+
+<!-- ════════════ INPUT SECTION ════════════ -->
+<div class="main">
+<div id="tab-input" class="section active">
+
+  <!-- Project Info -->
+  <div class="card">
+    <div class="card-title">Project Information</div>
+    <div class="grid3" style="gap:0.75rem;">
+      <div class="field"><label>Project Name</label><input id="projName" placeholder="e.g. Naga Commercial Building" /></div>
+      <div class="field"><label>Borehole ID</label><input id="bhId" placeholder="e.g. BH-01" /></div>
+      <div class="field"><label>Location / Site</label><input id="location" placeholder="e.g. Naga City, Camarines Sur" /></div>
+      <div class="field"><label>Date of Test</label><input id="testDate" type="date" /></div>
+      <div class="field"><label>Driller / Engineer</label><input id="driller" placeholder="Name" /></div>
+      <div class="field"><label>Total Borehole Depth (m)</label><input id="totalDepth" type="number" placeholder="e.g. 15" step="0.5" /></div>
+    </div>
+  </div>
+
+  <!-- Test Parameters -->
+  <div class="card">
+    <div class="card-title">SPT Correction Parameters</div>
+    <div class="formula-box">
+      <div class="eq">N₆₀ = N_field × (ηH/60) × ηB × ηS × ηR</div>
+      <div class="ref">Ref: Skempton (1986), Bowles (1996)</div>
+    </div>
+    <div class="grid4">
+      <div class="field">
+        <label>Hammer Efficiency ηH (%)</label>
+        <select id="hammerEff">
+          <option value="45">45% — Donut (rope &amp; cathead)</option>
+          <option value="60" selected>60% — Safety (rope &amp; cathead)</option>
+          <option value="73">73% — Automatic trip</option>
+          <option value="78">78% — Donut (free-fall)</option>
+        </select>
+        <span class="hint">ηH = 60 is standard reference</span>
+      </div>
+      <div class="field">
+        <label>Borehole Diameter ηB</label>
+        <select id="bhDiam">
+          <option value="1.0" selected>1.00 — 65–115 mm</option>
+          <option value="1.05">1.05 — 150 mm</option>
+          <option value="1.15">1.15 — 200 mm</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Sampler Correction ηS</label>
+        <select id="samplerCorr">
+          <option value="1.0" selected>1.00 — Standard (with liner)</option>
+          <option value="1.2">1.20 — USA/Japan (without liner)</option>
+          <option value="1.3">1.30 — S. America (without liner)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Water Table Depth (m)</label>
+        <input id="wtDepth" type="number" placeholder="e.g. 2.0" step="0.5" value="2.0" />
+        <span class="hint">Depth from ground surface</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Soil Layers -->
+  <div class="card">
+    <div class="card-title">Soil Layer Data — SPT Results</div>
+    <div class="alert alert-info" style="margin-bottom:1rem; font-size:12px;">
+      Enter each test interval. Depth = bottom of each test interval. N-value = blow count per 300mm penetration. γ = unit weight of soil layer.
+    </div>
+
+    <!-- Column Headers -->
+    <div style="display:grid; grid-template-columns:55px 80px 80px 95px 80px 75px 110px 70px 48px; gap:6px; margin-bottom:4px; padding: 0 2px;">
+      <div class="section-label">Layer #</div>
+      <div class="section-label">Depth (m)</div>
+      <div class="section-label">Thickness (m)</div>
+      <div class="section-label">Soil Type</div>
+      <div class="section-label">γ (kN/m³)</div>
+      <div class="section-label">N-field</div>
+      <div class="section-label">Classification</div>
+      <div class="section-label">D₅₀ (mm)</div>
+      <div class="section-label"></div>
+    </div>
+
+    <div id="layerContainer"></div>
+    <button class="add-layer-btn" onclick="addLayer()">+ Add Soil Layer</button>
+
+    <div style="margin-top:1rem;" class="btn-row">
+      <button class="btn btn-secondary" onclick="loadSample()">Load Sample Data</button>
+      <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Compute -->
+  <div style="text-align:right; margin-top:0.5rem;">
+    <button class="btn btn-primary" onclick="compute()" style="padding:10px 28px; font-size:14px;">
+      ▶ Analyze &amp; Compute Results
+    </button>
+  </div>
+</div>
+
+<!-- ════════════ RESULTS SECTION ════════════ -->
+<div id="tab-results" class="section">
+  <div id="resultsContent">
+    <div class="empty-state">
+      <div class="empty-icon">⚙</div>
+      <div>No results yet. Fill in input data and click <strong>Analyze &amp; Compute Results</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ METHODOLOGY SECTION ════════════ -->
+<div id="tab-methodology" class="section">
+  <div class="card">
+    <div class="card-title">Computation Methodology &amp; Formulas</div>
+
+    <div class="method-step">
+      <span class="method-num">1</span><span class="method-title">N₆₀ Correction (Energy Normalization)</span>
+      <div class="formula-box">
+        <div class="eq">N₆₀ = N_field × (ηH/60) × ηB × ηS × ηR</div>
+        <div>ηH = hammer efficiency (%) | ηB = borehole diameter factor | ηS = sampler type factor | ηR = rod length factor</div>
+        <table style="margin-top:8px; width:auto; font-size:11px;">
+          <tr><th style="border-bottom:none; padding:4px 12px 4px 0;">Rod Length</th><th style="border-bottom:none; padding:4px;">ηR</th></tr>
+          <tr><td style="border-bottom:none; padding:2px 12px 2px 0;">&lt; 3 m</td><td style="border-bottom:none;">0.75</td></tr>
+          <tr><td style="border-bottom:none; padding:2px 12px 2px 0;">3 – 4 m</td><td style="border-bottom:none;">0.80</td></tr>
+          <tr><td style="border-bottom:none; padding:2px 12px 2px 0;">4 – 6 m</td><td style="border-bottom:none;">0.85</td></tr>
+          <tr><td style="border-bottom:none; padding:2px 12px 2px 0;">6 – 10 m</td><td style="border-bottom:none;">0.95</td></tr>
+          <tr><td style="border-bottom:none; padding:2px 12px 2px 0;">&gt; 10 m</td><td style="border-bottom:none;">1.00</td></tr>
+        </table>
+        <div class="ref">Skempton (1986); Bowles, Foundation Analysis and Design (1996)</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">2</span><span class="method-title">Effective Vertical Stress (σ'v)</span>
+      <div class="formula-box">
+        <div class="eq">σv = Σ(γᵢ × Δzᵢ)  [total vertical stress]</div>
+        <div class="eq">u = γw × zw  where γw = 9.81 kN/m³  [pore water pressure]</div>
+        <div class="eq">σ'v = σv − u  [effective vertical stress]</div>
+        <div class="ref">Das, Principles of Geotechnical Engineering (8th ed.)</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">3</span><span class="method-title">Overburden Correction Factor (CN)</span>
+      <div class="formula-box">
+        <div class="eq">CN = √(Pa / σ'v)  [Liao &amp; Whitman, 1986]</div>
+        <div class="eq">CN ≤ 2.0</div>
+        <div>where Pa = 100 kPa (atmospheric pressure reference)</div>
+        <div class="ref">Liao &amp; Whitman (1986), J. of Geotechnical Engineering, ASCE</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">4</span><span class="method-title">Corrected SPT Value N₁(₆₀)</span>
+      <div class="formula-box">
+        <div class="eq">N₁(₆₀) = CN × N₆₀</div>
+        <div class="ref">Youd et al. (2001), ASCE J. Geotechnical &amp; Geoenvironmental Engineering</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">5</span><span class="method-title">Relative Density Dr (Sands)</span>
+      <div class="formula-box">
+        <div class="eq">Dr = √(N₁(₆₀) / Cd) × 100%</div>
+        <div>Cd = 0.23 (fine sand) | 0.25 (medium sand) | 0.30 (coarse sand)</div>
+        <div class="ref">Skempton (1986), Geotechnique</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">6</span><span class="method-title">Friction Angle φ' (Sands)</span>
+      <div class="formula-box">
+        <div class="eq">φ' = 27.1 + 0.3N₆₀ − 0.00054(N₆₀)²  [degrees]</div>
+        <div class="ref">Wolff (1989), as cited in Das (2014)</div>
+      </div>
+      <div class="formula-box">
+        <div class="eq">φ' = tan⁻¹[N₆₀/(12.2 + 20.3σ'v/Pa)]^0.34  [Peck et al.]</div>
+        <div class="ref">Peck, Hanson &amp; Thornburn (1974)</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">7</span><span class="method-title">Undrained Shear Strength Su (Clays)</span>
+      <div class="formula-box">
+        <div class="eq">Su = 0.29 × σ'v × (N₆₀ × Pa/σ'v)^0.72  [kPa]</div>
+        <div class="ref">Kulhawy &amp; Mayne (1990), EPRI EL-6800</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">8</span><span class="method-title">Allowable Bearing Capacity qa</span>
+      <div class="formula-box">
+        <div class="eq">For Sand (Meyerhof, 1956, modified):</div>
+        <div class="eq">qa = (N₆₀ / 0.08) × [(B + 0.3)/B]² × Fd  [kPa, B in m]</div>
+        <div class="eq">where Fd = 1 + 0.33(Df/B) ≤ 1.33  [depth factor]</div>
+        <div class="eq">For Clay: qa = 5.14Su(1 + sc + dc − ic)/FS</div>
+        <div>FS = 3.0 | Settlement ≤ 25mm assumed</div>
+        <div class="ref">Meyerhof (1956); Bowles (1996); Das (2014)</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">9</span><span class="method-title">Liquefaction Potential — CRR &amp; CSR</span>
+      <div class="formula-box">
+        <div class="eq">CSR = 0.65 × (σv/σ'v) × amax/g × rd</div>
+        <div class="eq">rd = 1.0 − 0.00765z  (z ≤ 9.15 m)  [stress reduction coeff.]</div>
+        <div class="eq">CRR₇.₅ = 1/[34 − N₁(₆₀)] + N₁(₆₀)/135 + 50/[10N₁(₆₀)+45]² − 1/200</div>
+        <div class="eq">MSF = 10^2.24 / (Mw^2.56)  [Magnitude Scaling Factor]</div>
+        <div class="eq">FS_liq = CRR₇.₅ × MSF / CSR</div>
+        <div>FS_liq &lt; 1.0 → LIQUEFIABLE | ≥ 1.0 → Non-liquefiable</div>
+        <div class="ref">Youd et al. (2001); Idriss &amp; Boulanger (2008)</div>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="method-num">10</span><span class="method-title">N-Value Soil Classification</span>
+      <div class="formula-box">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div>
+            <div style="color:var(--blue); margin-bottom:4px;">SAND (Relative Density)</div>
+            <div>N &lt; 4: Very Loose</div>
+            <div>N = 4–10: Loose</div>
+            <div>N = 11–30: Medium Dense</div>
+            <div>N = 31–50: Dense</div>
+            <div>N &gt; 50: Very Dense</div>
+          </div>
+          <div>
+            <div style="color:var(--blue); margin-bottom:4px;">CLAY (Consistency)</div>
+            <div>N &lt; 2: Very Soft</div>
+            <div>N = 2–4: Soft</div>
+            <div>N = 5–8: Medium Stiff</div>
+            <div>N = 9–15: Stiff</div>
+            <div>N = 16–30: Very Stiff</div>
+            <div>N &gt; 30: Hard</div>
+          </div>
+        </div>
+        <div class="ref">Peck, Hanson &amp; Thornburn (1974); BS 5930 (1981)</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let layerCount = 0;
+const layers = {};
+
+// ── Tab Navigation ────────────────────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ── Layer Management ──────────────────────────────────────────────────────
+function addLayer(data) {
+  layerCount++;
+  const id = layerCount;
+  const row = document.createElement('div');
+  row.id = 'layer-' + id;
+  row.style.cssText = 'display:grid; grid-template-columns:55px 80px 80px 95px 80px 75px 110px 70px 48px; gap:6px; margin-bottom:6px; align-items:end;';
+
+  const d = data || {};
+  row.innerHTML = `
+    <div class="field"><label>Layer ${id}</label>
+      <input value="${id}" readonly style="color:var(--text3); background:var(--bg4);" /></div>
+    <div class="field"><label>Depth (m)</label>
+      <input type="number" id="depth_${id}" value="${d.depth||''}" placeholder="e.g. 1.5" step="0.5" min="0" /></div>
+    <div class="field"><label>Thick. (m)</label>
+      <input type="number" id="thick_${id}" value="${d.thick||''}" placeholder="e.g. 1.5" step="0.5" min="0" /></div>
+    <div class="field"><label>Soil Type</label>
+      <select id="soilType_${id}">
+        <option value="sand_fine" ${d.st==='sand_fine'?'selected':''}>Fine Sand</option>
+        <option value="sand_med" ${d.st==='sand_med'?'selected':''}>Med. Sand</option>
+        <option value="sand_coarse" ${d.st==='sand_coarse'?'selected':''}>Coarse Sand</option>
+        <option value="gravel" ${d.st==='gravel'?'selected':''}>Gravel/Sandy Gravel</option>
+        <option value="clay" ${d.st==='clay'?'selected':''}>Clay</option>
+        <option value="silt" ${d.st==='silt'?'selected':''}>Silt</option>
+        <option value="organic" ${d.st==='organic'?'selected':''}>Organic</option>
+      </select></div>
+    <div class="field"><label>γ (kN/m³)</label>
+      <input type="number" id="gamma_${id}" value="${d.gamma||'18'}" placeholder="18" step="0.5" min="10" max="24" /></div>
+    <div class="field"><label>N-field</label>
+      <input type="number" id="nfield_${id}" value="${d.nfield||''}" placeholder="blows" step="1" min="0" max="100" /></div>
+    <div class="field"><label>Description</label>
+      <input id="desc_${id}" value="${d.desc||''}" placeholder="e.g. Brownish" /></div>
+    <div class="field"><label>D₅₀ (mm)</label>
+      <input type="number" id="d50_${id}" value="${d.d50||'0.25'}" placeholder="0.25" step="0.05" min="0.01" /></div>
+    <button class="btn btn-danger" onclick="removeLayer(${id})" style="padding:7px 10px; font-size:11px; height:32px;">✕</button>
+  `;
+  document.getElementById('layerContainer').appendChild(row);
+}
+
+function removeLayer(id) {
+  const el = document.getElementById('layer-' + id);
+  if (el) el.remove();
+}
+
+function clearAll() {
+  document.getElementById('layerContainer').innerHTML = '';
+  layerCount = 0;
+}
+
+function loadSample() {
+  clearAll();
+  const sample = [
+    {depth:1.5,  thick:1.5, st:'clay',       gamma:17.0, nfield:4,  desc:'Brownish gray soft clay',     d50:0.002},
+    {depth:3.0,  thick:1.5, st:'clay',       gamma:17.5, nfield:8,  desc:'Gray medium stiff clay',       d50:0.002},
+    {depth:4.5,  thick:1.5, st:'silt',       gamma:18.0, nfield:12, desc:'Gray silty soil',              d50:0.05},
+    {depth:6.0,  thick:1.5, st:'sand_fine',  gamma:18.5, nfield:18, desc:'Gray fine sand, loose',        d50:0.18},
+    {depth:7.5,  thick:1.5, st:'sand_fine',  gamma:19.0, nfield:24, desc:'Gray fine sand, medium dense', d50:0.20},
+    {depth:9.0,  thick:1.5, st:'sand_med',   gamma:19.5, nfield:35, desc:'Gray med sand, dense',         d50:0.40},
+    {depth:10.5, thick:1.5, st:'sand_med',   gamma:19.5, nfield:42, desc:'Gray med sand, dense',         d50:0.40},
+    {depth:12.0, thick:1.5, st:'sand_coarse',gamma:20.0, nfield:55, desc:'Gravelly sand, very dense',    d50:1.20},
+    {depth:13.5, thick:1.5, st:'gravel',     gamma:21.0, nfield:60, desc:'Sandy gravel, very dense',     d50:5.00},
+    {depth:15.0, thick:1.5, st:'gravel',     gamma:21.0, nfield:60, desc:'Sandy gravel, very dense',     d50:5.00},
+  ];
+  document.getElementById('projName').value = 'Naga Commercial Building';
+  document.getElementById('bhId').value = 'BH-01';
+  document.getElementById('location').value = 'Naga City, Camarines Sur';
+  document.getElementById('totalDepth').value = '15';
+  document.getElementById('wtDepth').value = '2.5';
+  sample.forEach(s => addLayer(s));
+}
+
+// ── Helper Functions ──────────────────────────────────────────────────────
+function getRodFactor(depth) {
+  if (depth < 3)   return 0.75;
+  if (depth < 4)   return 0.80;
+  if (depth < 6)   return 0.85;
+  if (depth < 10)  return 0.95;
+  return 1.00;
+}
+
+function getCd(soilType) {
+  if (soilType === 'sand_fine') return 0.23;
+  if (soilType === 'sand_med')  return 0.25;
+  return 0.30;
+}
+
+function isSand(st) { return ['sand_fine','sand_med','sand_coarse','gravel'].includes(st); }
+function isClay(st) { return ['clay','silt','organic'].includes(st); }
+
+function getNClassSand(n) {
+  if (n <  4)  return {label:'Very Loose', cls:'danger'};
+  if (n <= 10) return {label:'Loose',      cls:'warn'};
+  if (n <= 30) return {label:'Med. Dense', cls:'blue'};
+  if (n <= 50) return {label:'Dense',      cls:'green'};
+  return               {label:'Very Dense',cls:'green'};
+}
+
+function getNClassClay(n) {
+  if (n <  2)  return {label:'Very Soft',  cls:'danger'};
+  if (n <= 4)  return {label:'Soft',       cls:'danger'};
+  if (n <= 8)  return {label:'Med. Stiff', cls:'warn'};
+  if (n <= 15) return {label:'Stiff',      cls:'blue'};
+  if (n <= 30) return {label:'Very Stiff', cls:'green'};
+  return               {label:'Hard',      cls:'green'};
+}
+
+function getClassification(n, st) {
+  if (isSand(st)) return getNClassSand(n);
+  return getNClassClay(n);
+}
+
+function chipFor(cls, label) {
+  const map = {danger:'chip-red', warn:'chip-amber', blue:'chip-blue', green:'chip-green', gray:'chip-gray'};
+  return `<span class="chip ${map[cls]||'chip-gray'}">${label}</span>`;
+}
+
+function drLabel(dr) {
+  if (dr < 15) return {t:'Very Loose', c:'red'};
+  if (dr < 35) return {t:'Loose',      c:'amber'};
+  if (dr < 65) return {t:'Med. Dense', c:'blue'};
+  if (dr < 85) return {t:'Dense',      c:'green'};
+  return              {t:'Very Dense', c:'green'};
+}
+
+// ── Main Computation Engine ──────────────────────────────────────────────
+function compute() {
+  const gamma_w = 9.81;
+  const Pa = 100; // kPa
+
+  // Collect inputs
+  const hammerEff = parseFloat(document.getElementById('hammerEff').value);
+  const etaB      = parseFloat(document.getElementById('bhDiam').value);
+  const etaS      = parseFloat(document.getElementById('samplerCorr').value);
+  const wtDepth   = parseFloat(document.getElementById('wtDepth').value) || 0;
+
+  // Collect layer rows
+  const rowEls = document.getElementById('layerContainer').children;
+  if (rowEls.length === 0) {
+    alert('Please add at least one soil layer.');
+    return;
+  }
+
+  const layerData = [];
+  for (let el of rowEls) {
+    const idMatch = el.id.match(/\d+$/);
+    if (!idMatch) continue;
+    const i = idMatch[0];
+
+    const depth   = parseFloat(document.getElementById(`depth_${i}`)?.value);
+    const thick   = parseFloat(document.getElementById(`thick_${i}`)?.value);
+    const soilType= document.getElementById(`soilType_${i}`)?.value;
+    const gamma   = parseFloat(document.getElementById(`gamma_${i}`)?.value);
+    const nfield  = parseFloat(document.getElementById(`nfield_${i}`)?.value);
+    const desc    = document.getElementById(`desc_${i}`)?.value || '';
+    const d50     = parseFloat(document.getElementById(`d50_${i}`)?.value) || 0.25;
+
+    if (isNaN(depth) || isNaN(nfield)) continue;
+    layerData.push({depth, thick: isNaN(thick) ? 1.5 : thick, soilType, gamma: isNaN(gamma)?18:gamma, nfield, desc, d50});
+  }
+
+  if (layerData.length === 0) {
+    alert('No valid layer data found.');
+    return;
+  }
+
+  // Sort by depth
+  layerData.sort((a,b) => a.depth - b.depth);
+
+  // Compute stresses and corrections for each layer
+  const results = [];
+  let sigmav = 0;
+
+  for (let i = 0; i < layerData.length; i++) {
+    const L = layerData[i];
+    const midDepth = L.depth - L.thick / 2;
+
+    // Cumulative total stress at mid-depth
+    sigmav = 0;
+    for (let j = 0; j <= i; j++) {
+      const Lj = layerData[j];
+      const contrib = j < i ? Lj.thick : Lj.thick / 2;
+      sigmav += Lj.gamma * contrib;
+    }
+
+    // Pore water pressure
+    const zwMid = Math.max(0, midDepth - wtDepth);
+    const u = gamma_w * zwMid;
+
+    // Effective stress
+    const sigmav_eff = Math.max(sigmav - u, 1.0); // prevent div by zero
+
+    // Rod length factor
+    const etaR = getRodFactor(L.depth);
+
+    // N60
+    const N60 = L.nfield * (hammerEff / 60) * etaB * etaS * etaR;
+
+    // CN (Liao & Whitman 1986)
+    const CN = Math.min(2.0, Math.sqrt(Pa / sigmav_eff));
+
+    // N1(60)
+    const N160 = Math.min(CN * N60, 60); // cap at 60 per Youd et al.
+
+    // Relative Density (sands only)
+    let Dr = null;
+    if (isSand(L.soilType)) {
+      const Cd = getCd(L.soilType);
+      Dr = Math.min(100, Math.sqrt(N160 / Cd) * 100);
+    }
+
+    // Friction Angle (Wolff 1989)
+    let phi = null;
+    if (isSand(L.soilType)) {
+      phi = 27.1 + 0.3 * N60 - 0.00054 * N60 * N60;
+      phi = Math.min(45, Math.max(25, phi));
+    }
+
+    // Undrained Shear Strength (Kulhawy & Mayne 1990)
+    let Su = null;
+    if (isClay(L.soilType) && sigmav_eff > 0) {
+      Su = 0.29 * sigmav_eff * Math.pow(N60 * Pa / sigmav_eff, 0.72);
+    }
+
+    // Allowable Bearing Capacity (1m x 1m footing, Df = 1m assumed)
+    const B = 1.0, Df = 1.0;
+    let qa = null;
+    if (isSand(L.soilType)) {
+      const Fd = Math.min(1.33, 1 + 0.33 * (Df / B));
+      const shape = ((B + 0.3) / B) ** 2;
+      qa = (N60 / 0.08) * shape * Fd; // kPa
+    } else if (Su !== null) {
+      const Nc = 5.14, sc = 0.2, dc = 0.4 * (Df/B), FS = 3.0;
+      const qu = Su * Nc * (1 + sc + dc);
+      qa = qu / FS;
+    }
+
+    // Liquefaction (Youd et al. 2001) — applicable to saturated sands
+    let FS_liq = null;
+    let CSR = null, CRR = null;
+    const isSaturated = midDepth > wtDepth;
+    const liqApplicable = isSand(L.soilType) && isSaturated && L.soilType !== 'gravel';
+
+    if (liqApplicable && sigmav > 0 && sigmav_eff > 0) {
+      const z = midDepth;
+      const rd = z <= 9.15 ? 1.0 - 0.00765 * z : 1.174 - 0.0267 * z;
+      const amax = 0.4; // default 0.4g (Zone IV Philippines NSCP)
+      const Mw   = 7.0; // default Mw
+      CSR = 0.65 * (sigmav / sigmav_eff) * amax * rd;
+
+      if (N160 < 30) {
+        CRR = 1/(34 - N160) + N160/135 + 50/((10*N160+45)**2) - 1/200;
+      } else {
+        CRR = 2.0; // very dense, no liquefaction
+      }
+      const MSF = (10 ** 2.24) / (Mw ** 2.56);
+      FS_liq = (CRR * MSF) / CSR;
+    }
+
+    // Classification
+    const cls = getClassification(L.nfield, L.soilType);
+
+    results.push({
+      depth: L.depth,
+      thick: L.thick,
+      midDepth,
+      soilType: L.soilType,
+      desc: L.desc,
+      d50: L.d50,
+      nfield: L.nfield,
+      etaR,
+      N60: N60,
+      sigmav,
+      u,
+      sigmav_eff,
+      CN,
+      N160,
+      Dr,
+      phi,
+      Su,
+      qa,
+      CSR,
+      CRR,
+      FS_liq,
+      cls,
+    });
+  }
+
+  renderResults(results);
+  showTabDirect('results');
+}
+
+function showTabDirect(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const idx = {input:0, results:1, methodology:2}[id];
+  if (btns[idx]) btns[idx].classList.add('active');
+}
+
+function fmt(v, d=2) {
+  if (v === null || v === undefined || isNaN(v)) return '—';
+  return parseFloat(v).toFixed(d);
+}
+
+function soilLabel(st) {
+  const m = {sand_fine:'Fine Sand', sand_med:'Med. Sand', sand_coarse:'Coarse Sand', gravel:'Gravel', clay:'Clay', silt:'Silt', organic:'Organic'};
+  return m[st] || st;
+}
+
+// ── Render Results ───────────────────────────────────────────────────────
+function renderResults(results) {
+  const projName = document.getElementById('projName').value || 'Untitled Project';
+  const bhId     = document.getElementById('bhId').value    || '—';
+  const location = document.getElementById('location').value|| '—';
+  const testDate = document.getElementById('testDate').value|| '—';
+  const driller  = document.getElementById('driller').value || '—';
+  const hammerEff= document.getElementById('hammerEff').value;
+
+  // Summary stats
+  const maxN = Math.max(...results.map(r => r.nfield));
+  const minN = Math.min(...results.map(r => r.nfield));
+  const avgN = results.reduce((s,r) => s + r.nfield, 0) / results.length;
+  const maxQa = Math.max(...results.map(r => r.qa || 0));
+  const liqLayers = results.filter(r => r.FS_liq !== null && r.FS_liq < 1.0).length;
+  const totalDepth = Math.max(...results.map(r => r.depth));
+
+  let html = `
+  <div class="profile-header">
+    <div>
+      <div class="profile-bh">${bhId}</div>
+      <div class="profile-meta">${projName} | ${location}</div>
+      <div class="profile-meta" style="margin-top:4px;">Test Date: ${testDate} | Driller: ${driller}</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:var(--mono); font-size:12px; color:var(--text2);">Total Depth</div>
+      <div style="font-family:var(--mono); font-size:28px; color:var(--accent);">${fmt(totalDepth,1)}<span style="font-size:14px; color:var(--text2);"> m</span></div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat stat-blue"><div class="stat-label">Max N-value</div><div class="stat-value">${fmt(maxN,0)}</div><div class="stat-unit">blows / 300mm</div></div>
+    <div class="stat stat-amber"><div class="stat-label">Min N-value</div><div class="stat-value">${fmt(minN,0)}</div><div class="stat-unit">blows / 300mm</div></div>
+    <div class="stat"><div class="stat-label">Avg N-value</div><div class="stat-value" style="color:var(--text);">${fmt(avgN,1)}</div><div class="stat-unit">blows / 300mm</div></div>
+    <div class="stat stat-green"><div class="stat-label">Max Allow. Bearing</div><div class="stat-value">${fmt(maxQa,0)}</div><div class="stat-unit">kPa (1×1m footing)</div></div>
+    <div class="stat ${liqLayers>0?'stat-red':'stat-green'}"><div class="stat-label">Liquefiable Layers</div><div class="stat-value">${liqLayers}</div><div class="stat-unit">of ${results.filter(r=>r.FS_liq!==null).length} assessed</div></div>
+    <div class="stat"><div class="stat-label">Hammer Efficiency</div><div class="stat-value" style="color:var(--text);">${hammerEff}%</div><div class="stat-unit">ηH factor</div></div>
+  </div>
+
+  <!-- TABLE 1: Corrections -->
+  <div class="card">
+    <div class="card-title">Table 1 — SPT N-value Corrections</div>
+    <div class="formula-box" style="margin-bottom:1rem;">
+      <div class="eq">N₆₀ = N_field × (ηH/60) × ηB × ηS × ηR &nbsp;|&nbsp; CN = √(Pa/σ'v) ≤ 2.0 &nbsp;|&nbsp; N₁(₆₀) = CN × N₆₀</div>
+    </div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Depth (m)</th>
+          <th>Soil Type</th>
+          <th>Description</th>
+          <th>N_field</th>
+          <th>ηR</th>
+          <th>N₆₀</th>
+          <th>σv (kPa)</th>
+          <th>u (kPa)</th>
+          <th>σ'v (kPa)</th>
+          <th>CN</th>
+          <th>N₁(₆₀)</th>
+          <th>Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  for (const r of results) {
+    const cls = r.cls;
+    html += `<tr>
+      <td class="num">${fmt(r.depth,1)}</td>
+      <td class="label">${soilLabel(r.soilType)}</td>
+      <td class="label" style="max-width:140px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${r.desc}</td>
+      <td class="num">${fmt(r.nfield,0)}</td>
+      <td class="num">${fmt(r.etaR,2)}</td>
+      <td class="computed">${fmt(r.N60,1)}</td>
+      <td class="num">${fmt(r.sigmav,1)}</td>
+      <td class="num">${fmt(r.u,1)}</td>
+      <td class="num">${fmt(r.sigmav_eff,1)}</td>
+      <td class="computed">${fmt(r.CN,3)}</td>
+      <td class="computed">${fmt(r.N160,1)}</td>
+      <td>${chipFor(cls.cls, cls.label)}</td>
+    </tr>`;
+  }
+
+  html += `</tbody></table></div></div>`;
+
+  // TABLE 2: Engineering Properties
+  html += `
+  <div class="card">
+    <div class="card-title">Table 2 — Engineering Properties</div>
+    <div class="formula-box" style="margin-bottom:1rem;">
+      <div class="eq">Dr = √(N₁(₆₀)/Cd)×100% &nbsp;|&nbsp; φ' = 27.1 + 0.3N₆₀ − 0.00054N₆₀² &nbsp;|&nbsp; Su = 0.29σ'v(N₆₀Pa/σ'v)^0.72</div>
+    </div>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Depth (m)</th>
+          <th>Soil Type</th>
+          <th>N₁(₆₀)</th>
+          <th>Dr (%)</th>
+          <th>Density State</th>
+          <th>φ' (°)</th>
+          <th>Su (kPa)</th>
+          <th>qa (kPa)</th>
+          <th>qa (kg/cm²)</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  for (const r of results) {
+    const drL = r.Dr !== null ? drLabel(r.Dr) : null;
+    const qaKgcm2 = r.qa ? r.qa / 98.0665 : null;
+    html += `<tr>
+      <td class="num">${fmt(r.depth,1)}</td>
+      <td class="label">${soilLabel(r.soilType)}</td>
+      <td class="computed">${fmt(r.N160,1)}</td>
+      <td class="${r.Dr===null?'label':'computed'}">${r.Dr===null?'N/A (clay)':fmt(r.Dr,1)}</td>
+      <td>${drL ? chipFor(drL.c, drL.t) : chipFor('gray','—')}</td>
+      <td class="${r.phi===null?'label':'computed'}">${r.phi===null?'N/A':fmt(r.phi,1)}</td>
+      <td class="${r.Su===null?'label':'computed'}">${r.Su===null?'N/A':fmt(r.Su,1)}</td>
+      <td class="${r.qa===null?'label':'computed'}">${r.qa===null?'—':fmt(r.qa,1)}</td>
+      <td class="${r.qa===null?'label':'computed'}">${qaKgcm2===null?'—':fmt(qaKgcm2,3)}</td>
+    </tr>`;
+  }
+
+  html += `</tbody></table></div></div>`;
+
+  // TABLE 3: Liquefaction
+  const liqRows = results.filter(r => r.FS_liq !== null || (isSand(r.soilType)));
+  if (liqRows.length > 0) {
+    html += `
+    <div class="card">
+      <div class="card-title">Table 3 — Liquefaction Potential Assessment</div>
+      <div class="formula-box" style="margin-bottom:1rem;">
+        <div class="eq">CSR = 0.65×(σv/σ'v)×amax×rd &nbsp;|&nbsp; amax = 0.40g (NSCP Zone IV) &nbsp;|&nbsp; Mw = 7.0 (design earthquake)</div>
+        <div class="eq">CRR₇.₅ = 1/(34−N₁(₆₀)) + N₁(₆₀)/135 + 50/(10N₁(₆₀)+45)² − 1/200 &nbsp;|&nbsp; FS_liq = CRR×MSF/CSR</div>
+      </div>
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Depth (m)</th>
+            <th>Soil Type</th>
+            <th>N₁(₆₀)</th>
+            <th>σv/σ'v</th>
+            <th>CSR</th>
+            <th>CRR₇.₅</th>
+            <th>FS_liq</th>
+            <th>Assessment</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
+    for (const r of results) {
+      const isSandLayer = isSand(r.soilType) && r.soilType !== 'gravel';
+      const belowWT = r.midDepth > parseFloat(document.getElementById('wtDepth').value || 0);
+      if (!isSandLayer) {
+        html += `<tr>
+          <td class="num">${fmt(r.depth,1)}</td>
+          <td class="label">${soilLabel(r.soilType)}</td>
+          <td class="num">${fmt(r.N160,1)}</td>
+          <td colspan="5" class="label" style="color:var(--text3); text-align:center;">Not applicable — ${isClay(r.soilType)?'cohesive soil':'gravel (not assessed)'}</td>
+        </tr>`;
+        continue;
+      }
+      if (!belowWT) {
+        html += `<tr>
+          <td class="num">${fmt(r.depth,1)}</td>
+          <td class="label">${soilLabel(r.soilType)}</td>
+          <td class="num">${fmt(r.N160,1)}</td>
+          <td colspan="5" class="label" style="color:var(--text3); text-align:center;">Above water table — no liquefaction risk</td>
+        </tr>`;
+        continue;
+      }
+      const fsColor = r.FS_liq < 1.0 ? 'danger' : r.FS_liq < 1.3 ? 'warn' : 'computed';
+      const liqLabel = r.FS_liq < 1.0 ? 'LIQUEFIABLE' : r.FS_liq < 1.3 ? 'Marginal' : 'Non-liquefiable';
+      const liqCls   = r.FS_liq < 1.0 ? 'danger' : r.FS_liq < 1.3 ? 'warn' : 'green';
+      const ratio = r.sigmav_eff > 0 ? r.sigmav / r.sigmav_eff : 1;
+      html += `<tr>
+        <td class="num">${fmt(r.depth,1)}</td>
+        <td class="label">${soilLabel(r.soilType)}</td>
+        <td class="computed">${fmt(r.N160,1)}</td>
+        <td class="num">${fmt(ratio,3)}</td>
+        <td class="num">${fmt(r.CSR,4)}</td>
+        <td class="num">${fmt(r.CRR,4)}</td>
+        <td class="${fsColor}">${fmt(r.FS_liq,3)}</td>
+        <td>${chipFor(liqCls, liqLabel)}</td>
+      </tr>`;
+    }
+
+    html += `</tbody></table></div></div>`;
+  }
+
+  // Geologic Profile (visual text)
+  html += `
+  <div class="card">
+    <div class="card-title">Borehole Stratigraphic Log</div>
+    <div style="font-family:var(--mono); font-size:12px;">
+  `;
+
+  const wt = parseFloat(document.getElementById('wtDepth').value || 0);
+  let profileHtml = '';
+  let prevDepth = 0;
+  for (const r of results) {
+    const thick = r.thick;
+    const pxHeight = Math.max(30, thick * 28);
+    const isSandL = isSand(r.soilType);
+    const bgColor = isSandL ? '#1a2a1a' : isClay(r.soilType) ? '#1a1a2a' : '#2a1a1a';
+    const borderColor = isSandL ? '#3fb950' : isClay(r.soilType) ? '#58a6ff' : '#d29922';
+    const fsLabel = r.FS_liq !== null ? (r.FS_liq < 1.0 ? '⚠ LIQUEFY' : 'OK') : '';
+    profileHtml += `
+      <div style="display:flex; align-items:stretch; margin-bottom:1px;">
+        <div style="width:40px; text-align:right; padding-right:8px; color:var(--text3); font-size:11px; padding-top:4px;">${fmt(prevDepth,1)}</div>
+        <div style="width:3px; background:${borderColor}; flex-shrink:0;"></div>
+        <div style="background:${bgColor}; border:1px solid ${borderColor}30; flex:1; min-height:${pxHeight}px; padding:6px 10px; display:flex; align-items:center; justify-content:space-between;">
+          <div>
+            <span style="color:${borderColor}; font-weight:500;">${soilLabel(r.soilType)}</span>
+            <span style="color:var(--text2);"> — ${r.desc}</span>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; flex-shrink:0; margin-left:12px;">
+            <span style="color:var(--text3);">N=${fmt(r.nfield,0)}</span>
+            <span style="color:var(--accent);">N₆₀=${fmt(r.N60,1)}</span>
+            <span style="color:var(--blue);">N₁(₆₀)=${fmt(r.N160,1)}</span>
+            ${r.Dr!==null?`<span style="color:var(--amber);">Dr=${fmt(r.Dr,0)}%</span>`:''}
+            ${r.Su!==null?`<span style="color:var(--blue);">Su=${fmt(r.Su,1)}kPa</span>`:''}
+            ${fsLabel?`<span style="color:${r.FS_liq<1?'var(--red)':'var(--accent)'}; font-size:11px;">${fsLabel}</span>`:''}
+          </div>
+        </div>
+        <div style="width:45px; text-align:left; padding-left:8px; color:var(--text3); font-size:11px; padding-top:4px;">${fmt(r.depth,1)} m</div>
+      </div>
+    `;
+    // Water table marker
+    if (prevDepth < wt && r.depth >= wt) {
+      profileHtml += `<div style="display:flex; align-items:center; margin-bottom:1px;">
+        <div style="width:40px;"></div>
+        <div style="width:3px;"></div>
+        <div style="flex:1; border-top:2px dashed #58a6ff; padding:2px 10px; color:#58a6ff; font-size:11px;">▼ Groundwater Table (${fmt(wt,1)} m)</div>
+        <div style="width:45px;"></div>
+      </div>`;
+    }
+    prevDepth = r.depth;
+  }
+
+  html += profileHtml + `</div></div>`;
+
+  // Recommendations
+  let recHtml = '';
+  if (liqLayers > 0) recHtml += `<div class="alert alert-error" style="margin-bottom:8px;">⚠ <strong>Liquefaction Risk:</strong> ${liqLayers} layer(s) assessed as liquefiable (FS &lt; 1.0). Ground improvement or deep foundations are recommended.</div>`;
+  const minQa = Math.min(...results.filter(r=>r.qa).map(r=>r.qa));
+  if (minQa < 50) recHtml += `<div class="alert alert-warn" style="margin-bottom:8px;">⚠ <strong>Low Bearing Capacity:</strong> Some layers have qa &lt; 50 kPa. Shallow foundations in these zones are not recommended.</div>`;
+  const hasSoftClay = results.some(r=>isClay(r.soilType) && r.nfield < 5);
+  if (hasSoftClay) recHtml += `<div class="alert alert-warn" style="margin-bottom:8px;">⚠ <strong>Soft Clay:</strong> Very soft to soft clay layers detected. Significant settlement and stability concerns expected.</div>`;
+
+  if (recHtml) {
+    html += `<div class="card"><div class="card-title">Engineering Recommendations</div>${recHtml}</div>`;
+  }
+
+  // Footer
+  html += `
+  <div style="text-align:center; font-family:var(--mono); font-size:11px; color:var(--text3); margin-top:1rem; padding:0.75rem;">
+    GeoTech Analyzer — SPT Analysis | Computed ${new Date().toLocaleString()} | For engineering reference only — verify with licensed geotechnical engineer
+  </div>
+  `;
+
+  document.getElementById('resultsContent').innerHTML = html;
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Set today's date
+  document.getElementById('testDate').value = new Date().toISOString().split('T')[0];
+  // Add 3 empty layers to start
+  addLayer();
+  addLayer();
+  addLayer();
+});
+</script>
+</body>
+</html>
