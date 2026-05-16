@@ -118,6 +118,8 @@
     background: var(--bg2); border: 1px solid var(--border);
     border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.25rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
   }
 
   /* Enhanced cards for mobile */
@@ -128,12 +130,66 @@
       border-radius: var(--radius);
     }
   }
-  .card-title {
-    font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--text2);
-    text-transform: uppercase; letter-spacing: 0.1em;
-    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;
+
+  /* Section-specific background tints for visual hierarchy */
+  .card:nth-child(1) { /* Project Info */
+    background: var(--bg2);
+    border-left: 3px solid var(--green);
   }
-  .card-title::before { content: '//'; color: var(--green); font-family: var(--mono); }
+
+  .card:nth-child(2) { /* Test Parameters */
+    background: var(--bg2);
+    border-left: 3px solid var(--blue);
+  }
+
+  .card:nth-child(3) { /* Soil Layers */
+    background: var(--bg2);
+    border-left: 3px solid var(--amber);
+  }
+
+  .card:nth-child(n+4) { /* Results cards and others */
+    background: var(--bg2);
+    border-left: 3px solid var(--accent);
+  }
+
+  /* Subtle hover elevation for cards */
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card-title {
+    font-family: var(--sans); font-size: 16px; font-weight: 600; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;
+    position: relative;
+    padding-left: 20px;
+  }
+  .card-title::before {
+    content: '//';
+    color: var(--green);
+    font-family: var(--mono);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  .card-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--green);
+  }
+
+  /* Section-specific title colors */
+  .card:nth-child(1) .card-title::after { background: var(--green); }
+  .card:nth-child(2) .card-title::after { background: var(--blue); }
+  .card:nth-child(3) .card-title::after { background: var(--amber); }
+  .card:nth-child(n+4) .card-title::after { background: var(--accent); }
 
   /* ── Grid ── */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -152,16 +208,55 @@
 
   /* ── Form Elements ── */
   .field { display: flex; flex-direction: column; gap: 8px; }
-  .field label { font-size: 14px; color: var(--text2); font-family: var(--sans); font-weight: 500; margin-bottom: 4px; }
+  .field label {
+    font-size: 14px;
+    color: var(--text2);
+    font-family: var(--sans);
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .field label::after {
+    content: attr(data-required);
+    color: var(--red);
+    font-size: 10px;
+    margin-left: 2px;
+  }
   .field input, .field select {
-    background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
-    color: var(--text); padding: 12px 16px; font-family: var(--sans); font-size: 16px;
-    outline: none; transition: border-color 0.15s;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    padding: 12px 16px;
+    font-family: var(--sans);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.2s ease;
     min-height: 44px; /* Touch-friendly minimum height */
   }
-  .field input:focus, .field select:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(63,185,80,0.12); }
-  .field input::placeholder { color: var(--text3); }
-  .field .hint { font-size: 13px; color: var(--text3); font-style: italic; }
+  .field input:focus, .field select:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(63,185,80,0.25);
+  }
+  .field input:valid {
+    border-color: var(--green);
+  }
+  .field input:invalid {
+    border-color: var(--red);
+  }
+  .field input::placeholder {
+    color: var(--text3);
+    opacity: 0.7;
+  }
+  .field .hint {
+    font-size: 13px;
+    color: var(--text3);
+    font-style: italic;
+    margin-top: 2px;
+    display: block;
+  }
 
   /* Touch enhancements for mobile */
   @media (max-width: 768px) {
@@ -169,7 +264,9 @@
       font-size: 18px;
       padding: 14px 16px;
     }
-    .field label { font-size: 16px; }
+    .field label {
+      font-size: 16px;
+    }
   }
 
   /* ── Data Table ── */
