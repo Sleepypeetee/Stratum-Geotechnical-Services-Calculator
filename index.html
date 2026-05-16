@@ -62,7 +62,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     background: linear-gradient(to bottom, var(--bg2), var(--bg3));
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     width: 100%;
@@ -249,91 +249,18 @@
     }
   }
 
-  /* Responsive header adjustments */
-  @media (max-width: 768px) {
-    .header {
-      height: auto;
-      padding: 1rem;
-      flex-direction: column;
-      gap: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-  }
-
+  /* Responsive header adjustments — always stay as a single horizontal row */
   @media (max-width: 480px) {
     .header {
-      padding: 0.5rem;
+      padding: 0 0.75rem !important;
       gap: 6px;
-      height: auto;
-      min-height: unset;
-      background: var(--bg2);
-      box-shadow: 0 1px 5px rgba(0,0,0,0.2);
-    }
-
-    .logo {
-      gap: 4px !important;
-    }
-
-    .logo-icon {
-      width: 20px !important;
-      height: 20px !important;
-      font-size: 9px !important;
-    }
-
-    .logo-text {
-      font-size: 10px !important;
-      font-weight: 500 !important;
-    }
-
-    .logo-sub {
-      font-size: 8px !important;
-      line-height: 1.1 !important;
-    }
-
-    .badge {
-      font-size: 8px !important;
-      padding: 1px 4px !important;
-      border-radius: 10px !important;
-    }
-
-    /* Override the inline styles on the logo image */
-    .logo img {
-      width: 20px !important;
-      height: 20px !important;
     }
   }
 
-  /* Additional fix for very small screens */
   @media (max-width: 320px) {
     .header {
-      padding: 0.4rem;
+      padding: 0 0.5rem !important;
       gap: 4px;
-    }
-
-    .logo-icon {
-      width: 16px !important;
-      height: 16px !important;
-      font-size: 8px !important;
-    }
-
-    .logo-text {
-      font-size: 9px !important;
-    }
-
-    .logo-sub {
-      font-size: 7px !important;
-    }
-
-    .badge {
-      font-size: 7px !important;
-      padding: 1px 3px !important;
-    }
-
-    .logo img {
-      width: 16px !important;
-      height: 16px !important;
     }
   }
 
@@ -342,10 +269,15 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1 0 200px;
-    min-width: 180px;
-    flex-wrap: wrap;
-    position: static; /* Ensure normal flow */
+    flex: 1 1 auto;
+    min-width: 0; /* Allow shrinking below content size */
+    flex-wrap: nowrap; /* Never wrap — keep logo in one row */
+    overflow: hidden;
+    position: static;
+  }
+  .logo > div {
+    min-width: 0;
+    overflow: hidden;
   }
   .logo-icon {
     width: 28px;
@@ -360,8 +292,8 @@
     font-weight: 600;
     color: #fff;
   }
-  .logo-text { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; }
-  .logo-sub { color: var(--text2); font-size: 12px; font-family: var(--sans); }
+  .logo-text { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .logo-sub { color: var(--text2); font-size: 12px; font-family: var(--sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .badge { background: var(--green2); color: #fff; font-size: 12px; padding: 3px 10px; border-radius: 20px; font-family: var(--mono); }
 
   /* ── Nav Tabs ── */
