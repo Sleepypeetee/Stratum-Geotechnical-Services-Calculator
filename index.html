@@ -5,36 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stratum Geotechnical Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0f1a;
-    --bg2: #0f1726;
-    --bg3: #172035;
-    --bg4: #1e2d47;
-    --border: #1e3055;
-    --border2: #2d4a7a;
-    --text: #dce8f5;
-    --text2: #7a96b8;
-    --text3: #4e6a8a;
-    --accent: #5b9bd5;
-    --accent2: #1e4fa8;
-    --amber: #d29922;
-    --red: #f85149;
-    --blue: #7ebfff;
-    --teal: #4ab8e0;
-    --radius: 6px;
-    --radius-lg: 10px;
+    --bg:      #080e1c;
+    --bg2:     #0d1628;
+    --bg3:     #142034;
+    --bg4:     #1c2d45;
+    --border:  #1e3358;
+    --border2: #2d4d80;
+    --text:    #e8f0fa;
+    --text2:   #9db8d8;
+    --text3:   #5c7fa8;
+    --green:   #3fb950;
+    --green2:  #238636;
+    --amber:   #e3a424;
+    --red:     #f85149;
+    --blue:    #79c0ff;
+    --accent:  #4d9de0;
+    --accent2: #1a4a9e;
+    --radius:  8px;
+    --radius-lg: 12px;
     --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --sans: 'Inter', sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7;
     min-height: 100vh;
   }
 
@@ -42,11 +43,11 @@
   .header {
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
+    padding: 0 2.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
+    height: 64px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -60,37 +61,37 @@
     font-family: var(--mono); font-size: 13px; font-weight: 600;
     color: #fff;
   }
-  .logo-text { font-family: var(--mono); font-size: 14px; color: var(--text); }
-  .logo-sub { color: var(--text2); font-size: 11px; font-family: var(--mono); }
-  .badge { background: var(--accent2); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-family: var(--mono); }
+  .logo-text { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; }
+  .logo-sub { color: var(--text2); font-size: 12px; font-family: var(--sans); }
+  .badge { background: var(--green2); color: #fff; font-size: 12px; padding: 3px 10px; border-radius: 20px; font-family: var(--mono); }
 
   /* ── Nav Tabs ── */
-  .nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--bg2); padding: 0 2rem; }
+  .nav { display: flex; gap: 0; border-bottom: 1px solid var(--border); background: var(--bg2); padding: 0 2.5rem; }
   .nav-btn {
-    padding: 10px 16px; background: none; border: none; border-bottom: 2px solid transparent;
-    color: var(--text2); cursor: pointer; font-family: var(--sans); font-size: 13px;
-    display: flex; align-items: center; gap: 6px; transition: all 0.15s;
+    padding: 14px 20px; background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--text2); cursor: pointer; font-family: var(--sans); font-size: 15px;
+    display: flex; align-items: center; gap: 8px; transition: all 0.15s;
   }
-  .nav-btn:hover { color: var(--text); }
-  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); border-radius: 4px 4px 0 0; }
+  .nav-btn.active { color: #3fb950; border-bottom-color: #3fb950; font-weight: 600; }
   .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
   /* ── Main Layout ── */
-  .main { max-width: 1280px; margin: 0 auto; padding: 1.5rem 2rem; }
+  .main { max-width: 1300px; margin: 0 auto; padding: 2rem 2.5rem; }
   .section { display: none; }
   .section.active { display: block; }
 
   /* ── Cards ── */
   .card {
     background: var(--bg2); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem;
+    border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.25rem;
   }
   .card-title {
-    font-family: var(--mono); font-size: 11px; color: var(--text2);
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+    font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;
   }
-  .card-title::before { content: '//'; color: var(--accent); }
+  .card-title::before { content: '//'; color: var(--green); font-family: var(--mono); }
 
   /* ── Grid ── */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -99,68 +100,68 @@
 
   /* ── Form Elements ── */
   .field { display: flex; flex-direction: column; gap: 5px; }
-  .field label { font-size: 12px; color: var(--text2); font-family: var(--mono); }
+  .field label { font-size: 13px; color: var(--text2); font-family: var(--sans); font-weight: 500; margin-bottom: 2px; }
   .field input, .field select {
     background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
-    color: var(--text); padding: 7px 10px; font-family: var(--mono); font-size: 13px;
+    color: var(--text); padding: 9px 12px; font-family: var(--sans); font-size: 14px;
     outline: none; transition: border-color 0.15s;
   }
-  .field input:focus, .field select:focus { border-color: var(--accent); }
+  .field input:focus, .field select:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(63,185,80,0.12); }
   .field input::placeholder { color: var(--text3); }
-  .field .hint { font-size: 11px; color: var(--text3); }
+  .field .hint { font-size: 12px; color: var(--text3); font-style: italic; }
 
   /* ── Data Table ── */
   .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
-  table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 13.5px; }
   thead tr { background: var(--bg3); }
   th {
-    padding: 8px 10px; text-align: left; color: var(--text2);
-    font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
-    border-bottom: 1px solid var(--border); white-space: nowrap;
+    padding: 11px 14px; text-align: left; color: var(--text2);
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border); white-space: nowrap; font-weight: 600;
   }
-  td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--text); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px; }
   tbody tr:last-child td { border-bottom: none; }
   tbody tr:hover { background: var(--bg3); }
   td.num { text-align: right; color: var(--blue); }
-  td.computed { text-align: right; color: var(--accent); }
+  td.computed { text-align: right; color: var(--green); font-weight: 500; }
   td.warn { text-align: right; color: var(--amber); }
   td.danger { text-align: right; color: var(--red); }
   td.label { color: var(--text2); }
 
   /* ── Buttons ── */
   .btn {
-    padding: 8px 16px; border-radius: var(--radius); border: none;
-    cursor: pointer; font-family: var(--mono); font-size: 13px;
-    display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s;
+    padding: 10px 20px; border-radius: var(--radius); border: none;
+    cursor: pointer; font-family: var(--sans); font-size: 14px; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 8px; transition: all 0.15s;
   }
-  .btn-primary { background: var(--accent2); color: #fff; }
-  .btn-primary:hover { background: #2ea043; }
-  .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
-  .btn-secondary:hover { border-color: var(--border2); }
+  .btn-primary { background: var(--green2); color: #fff; }
+  .btn-primary:hover { background: #2ea043; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(63,185,80,0.3); }
+  .btn-secondary { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--green); color: var(--text); }
   .btn-danger { background: #3a1a1a; color: var(--red); border: 1px solid #5a2020; }
   .btn-danger:hover { background: #5a2020; }
   .btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
   /* ── Stats ── */
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
-  .stat { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
-  .stat-label { font-size: 11px; color: var(--text2); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; }
-  .stat-value { font-size: 22px; font-weight: 600; font-family: var(--mono); margin-top: 4px; }
-  .stat-unit { font-size: 11px; color: var(--text2); }
-  .stat-green .stat-value { color: var(--accent); }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+  .stat { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
+  .stat-label { font-size: 12px; color: var(--text2); font-family: var(--sans); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
+  .stat-value { font-size: 26px; font-weight: 700; font-family: var(--mono); margin-top: 6px; }
+  .stat-unit { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .stat-green .stat-value { color: var(--green); }
   .stat-blue .stat-value { color: var(--blue); }
   .stat-amber .stat-value { color: var(--amber); }
   .stat-red .stat-value { color: var(--red); }
 
   /* ── Formula Block ── */
   .formula-box {
-    background: var(--bg3); border-left: 3px solid var(--accent);
+    background: var(--bg3); border-left: 4px solid var(--green);
     border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 0.75rem 1rem; margin: 0.75rem 0;
-    font-family: var(--mono); font-size: 12px; color: var(--text2);
+    padding: 1rem 1.25rem; margin: 0.75rem 0;
+    font-family: var(--mono); font-size: 13px; color: var(--text2); line-height: 1.8;
   }
-  .formula-box .eq { color: var(--accent); font-size: 13px; margin: 2px 0; }
-  .formula-box .ref { font-size: 11px; color: var(--text3); margin-top: 4px; }
+  .formula-box .eq { color: var(--green); font-size: 14px; margin: 3px 0; font-weight: 500; }
+  .formula-box .ref { font-size: 12px; color: var(--text3); margin-top: 6px; font-style: italic; }
 
   /* ── Soil Layer Row Input ── */
   .layer-row {
@@ -168,21 +169,21 @@
     grid-template-columns: 50px 80px 80px 90px 80px 70px 100px 60px auto;
     gap: 6px; align-items: end; margin-bottom: 6px;
   }
-  .layer-row .field label { font-size: 10px; }
+  .layer-row .field label { font-size: 12px; }
 
   /* ── Classification Chip ── */
   .chip {
-    display: inline-block; padding: 2px 8px; border-radius: 20px;
-    font-size: 11px; font-family: var(--mono); white-space: nowrap;
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 12px; font-family: var(--sans); font-weight: 600; white-space: nowrap;
   }
-  .chip-green { background: #1a3a1a; color: var(--accent); }
+  .chip-green { background: rgba(63,185,80,0.15); color: #3fb950; }
   .chip-amber { background: #2a2010; color: var(--amber); }
   .chip-red { background: #2a1010; color: var(--red); }
   .chip-blue { background: #102030; color: var(--blue); }
   .chip-gray { background: var(--bg4); color: var(--text2); }
 
   /* ── Alert ── */
-  .alert { padding: 10px 14px; border-radius: var(--radius); margin-bottom: 1rem; font-size: 13px; }
+  .alert { padding: 13px 16px; border-radius: var(--radius); margin-bottom: 1rem; font-size: 14px; line-height: 1.6; }
   .alert-info { background: #10243e; border: 1px solid #1f4068; color: var(--blue); }
   .alert-warn { background: #2a1f00; border: 1px solid #5a4000; color: var(--amber); }
   .alert-error { background: #2a0f0f; border: 1px solid #5a2020; color: var(--red); }
@@ -192,10 +193,10 @@
   .method-step { margin-bottom: 1.5rem; }
   .method-num {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 22px; height: 22px; background: var(--accent2); border-radius: 50%;
-    font-family: var(--mono); font-size: 11px; color: #fff; margin-right: 8px;
+    width: 26px; height: 26px; background: var(--green2); border-radius: 50%;
+    font-family: var(--mono); font-size: 13px; font-weight: 600; color: #fff; margin-right: 10px;
   }
-  .method-title { font-size: 13px; font-weight: 500; color: var(--text); display: inline; }
+  .method-title { font-size: 16px; font-weight: 600; color: var(--text); display: inline; }
 
   /* ── Print / Export ── */
   @media print {
@@ -216,30 +217,30 @@
     display: grid; grid-template-columns: 1fr auto;
     align-items: center; gap: 1rem;
   }
-  .profile-bh { font-family: var(--mono); font-size: 24px; font-weight: 600; color: var(--accent); }
-  .profile-meta { font-size: 12px; color: var(--text2); margin-top: 4px; }
+  .profile-bh { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--blue); }
+  .profile-meta { font-size: 14px; color: var(--text2); margin-top: 5px; }
 
   .empty-state {
-    text-align: center; padding: 3rem; color: var(--text2);
-    font-family: var(--mono); font-size: 13px;
+    text-align: center; padding: 4rem; color: var(--text2);
+    font-family: var(--sans); font-size: 15px; line-height: 2;
   }
   .empty-icon { font-size: 40px; margin-bottom: 1rem; }
 
   /* layer add button */
   .add-layer-btn {
-    width: 100%; padding: 8px;
+    width: 100%; padding: 11px;
     background: var(--bg3); border: 1px dashed var(--border2);
     border-radius: var(--radius); color: var(--text2);
-    cursor: pointer; font-family: var(--mono); font-size: 12px;
+    cursor: pointer; font-family: var(--sans); font-size: 14px;
     text-align: center; transition: all 0.15s;
   }
-  .add-layer-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .add-layer-btn:hover { border-color: var(--green); color: var(--green); background: rgba(63,185,80,0.05); }
 
   .sep { height: 1px; background: var(--border); margin: 1rem -1.25rem; }
-  .section-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .section-label { font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
 
   .result-section { margin-bottom: 1.5rem; }
-  .result-section h3 { font-size: 13px; font-weight: 500; color: var(--text2); font-family: var(--mono); margin-bottom: 10px; }
+  .result-section h3 { font-size: 15px; font-weight: 600; color: var(--text2); font-family: var(--sans); margin-bottom: 12px; }
 
   .liq-bar { height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; margin-top: 6px; }
   .liq-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
@@ -252,6 +253,23 @@
     .header { padding: 0 1rem; }
     .nav { padding: 0 1rem; }
   }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* ── Table row hover ── */
+  tbody tr:hover { background: rgba(77,157,224,0.06); }
+
+  /* ── Section transition ── */
+  .section.active { animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ── Input hover ── */
+  .field input:hover, .field select:hover { border-color: var(--border2); }
+
 </style>
 </head>
 <body>
@@ -363,7 +381,7 @@
 
   <!-- Compute -->
   <div style="text-align:right; margin-top:0.5rem;">
-    <button class="btn btn-primary" onclick="compute()" style="padding:10px 28px; font-size:14px;">
+    <button class="btn btn-primary" onclick="compute()" style="padding:13px 36px; font-size:16px; font-weight:600; letter-spacing:0.02em;">
       ▶ Analyze &amp; Compute Results
     </button>
   </div>
