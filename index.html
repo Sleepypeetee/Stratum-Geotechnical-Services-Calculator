@@ -66,16 +66,24 @@
   }
 
   .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex: 1 0 200px;
     min-width: 180px;
+    flex-wrap: wrap;
   }
-  .logo { display: flex; align-items: center; gap: 10px; }
   .logo-icon {
-    width: 28px; height: 28px;
+    width: 28px;
+    height: 28px;
     background: var(--accent2);
     border-radius: 5px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
     color: #fff;
   }
   .logo-text { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); letter-spacing: 0.01em; }
@@ -411,20 +419,44 @@
     .main { padding: 0.75rem; }
     .header {
       height: auto;
-      padding: 1rem;
+      padding: 0.5rem; /* Further reduced padding */
       flex-direction: column;
-      gap: 12px;
+      gap: 6px; /* Reduced gap between logo and badge */
     }
     .logo {
       justify-content: center;
       width: 100%;
+      gap: 4px; /* Further reduced gap between icon and text */
     }
-    .logo-text,
+    .logo > div { /* The container div for text elements */
+      display: flex;
+      flex-direction: column;
+      gap: 2px; /* Minimal gap between text lines */
+    }
+    .logo-icon {
+      width: 20px; /* Even smaller icon */
+      height: 20px; /* Even smaller icon */
+      font-size: 9px; /* Smaller icon text */
+    }
+    .logo-text {
+      font-family: var(--mono);
+      font-size: 9px; /* Further reduced size */
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      line-height: 1.1; /* Tighter line height */
+    }
     .logo-sub {
-      text-align: center;
+      color: var(--text2);
+      font-size: 8px; /* Further reduced size */
+      font-family: var(--sans);
+      line-height: 1.1;
     }
     .badge {
       align-self: center;
+      font-size: 8px; /* Further reduced size */
+      padding: 1px 4px; /* Further reduced padding */
+      border-radius: 12px; /* Smaller border radius */
     }
   }
 
